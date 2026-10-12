@@ -13,7 +13,7 @@ def armar_correo(t):
     filas = [("Docente", t["docente"]), ("Pabellón", t["pabellon"]),
              ("Laboratorio", t["laboratorio"]), ("Categoría", categoria), ("Registrado", hora)]
 
-    asunto = f"[Ticket #{t['id']}] {categoria} - {t['laboratorio']}"
+    asunto = f"[Ticket #{t['id']}] {categoria} - Labo {t['laboratorio']} {t['pabellon']}"
 
     texto = (f"Nueva incidencia #{t['id']}\n\n"
              + "\n".join(f"{k}: {v}" for k, v in filas)
