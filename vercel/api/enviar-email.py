@@ -4,16 +4,18 @@ from html import escape
 import json, os, urllib.request
 
 CATEGORIAS = {"pantalla": "Pantalla interactiva", "proyector": "Proyector"}
+PABELLONES = {"Nuevo pabellón": "NP", "Antiguo pabellón": "AP"}
 
 
 def armar_correo(t):
     """Devuelve asunto, texto plano y HTML a partir de los datos del ticket."""
     categoria = CATEGORIAS.get(t["categoria"], t["categoria"])
+    pabellon = PABELLONES.get(t["pabellon"], t["pabellon"])
     hora = datetime.now(timezone(timedelta(hours=-5))).strftime("%d/%m/%Y %H:%M")  # hora de Lima
     filas = [("Docente", t["docente"]), ("Pabellón", t["pabellon"]),
              ("Laboratorio", t["laboratorio"]), ("Categoría", categoria), ("Registrado", hora)]
 
-    asunto = f"[Ticket #{t['id']}] {categoria} - Labo {t['laboratorio']} {t['pabellon']}"
+    asunto = f"[Ticket #{t['id']}] {categoria} - Lab{t['laboratorio']}{pabellon}"
 
     texto = (f"Nueva incidencia #{t['id']}\n\n"
              + "\n".join(f"{k}: {v}" for k, v in filas)
